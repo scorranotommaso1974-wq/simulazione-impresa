@@ -196,7 +196,8 @@
     const SUPABASE_URL = "https://qxthqvmuyldvrwnkwsys.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4dGhxdm11eWxkdnJ3bmt3c3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MDUxMTUsImV4cCI6MjA5NTk4MTExNX0.x1cUlhCrD3OQlkgchWu2QElOkw16G1q7SSn8lWqSoj8";
 
-    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // Utilizziamo 'db' per evitare il conflitto con la variabile globale 'supabase'
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Stato sessione locale
     let currentTeam = null;
@@ -214,7 +215,7 @@
         return;
       }
 
-      const { data: teams, error } = await supabase
+      const { data: teams, error } = await db
         .from('teams')
         .select('id, nome_gruppo')
         .eq('classe', classe)
@@ -250,7 +251,7 @@
         return;
       }
 
-      const { data: team, error } = await supabase
+      const { data: team, error } = await db
         .from('teams')
         .select('*')
         .eq('id', teamId)
@@ -306,13 +307,13 @@
           const fileExt = file.name.split('.').pop();
           const filePath = `${currentTeam.id}/${Date.now()}.${fileExt}`;
 
-          const { error: uploadErr } = await supabase.storage
+          const { error: uploadErr } = await db.storage
             .from('team-logos')
             .upload(filePath, file, { upsert: true });
 
           if (uploadErr) throw uploadErr;
 
-          const { data: urlData } = supabase.storage
+          const { data: urlData } = db.storage
             .from('team-logos')
             .getPublicUrl(filePath);
 
@@ -326,7 +327,7 @@
           updated_at: new Date().toISOString()
         };
 
-        const { error: updateErr } = await supabase
+        const { error: updateErr } = await db
           .from('teams')
           .update(updateData)
           .eq('id', currentTeam.id);
@@ -361,7 +362,7 @@
 
       try {
         const loc = document.getElementById('location').value.trim();
-        const { error } = await supabase
+        const { error } = await db
           .from('teams')
           .update({ location: loc, updated_at: new Date().toISOString() })
           .eq('id', currentTeam.id);
@@ -385,7 +386,7 @@
 
       try {
         const target = document.getElementById('targetClientela').value.trim();
-        const { error } = await supabase
+        const { error } = await db
           .from('teams')
           .update({ target_clientela: target, updated_at: new Date().toISOString() })
           .eq('id', currentTeam.id);
@@ -426,5 +427,5 @@
       document.getElementById('sezioneLogin').classList.remove('hidden');
     }
   </script>
-</body>
+  </body>
 </html>
