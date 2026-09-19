@@ -119,7 +119,26 @@
                 <input type="file" id="fileLogo" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
               </div>
             </div>
-
+<!-- BOX TUTOR IA PER IL LOGO -->
+              <div class="bg-indigo-50/80 border border-indigo-200 rounded-xl p-4 mb-3">
+                <div class="flex items-center space-x-2 text-indigo-800 font-semibold mb-1">
+                  <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i>
+                  <span class="text-sm">Tutor IA: Generatore Marchio & Logo</span>
+                </div>
+                <p class="text-xs text-slate-600 mb-3">
+                  Non hai un'immagine pronta? Descrivi lo stile (es. <em>"Stile flat, colori verde e oro, icona di una foglia di ulivo stilizzata"</em>) e l'IA creerà il logo per la tua impresa.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-2">
+                  <input type="text" id="promptStile" placeholder="Descrivi stile, simboli e colori..." 
+                         class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500 bg-white">
+                  <button type="button" onclick="generaLogoConIA()" id="btnGeneraIA" 
+                          class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-xs font-medium transition shadow-sm flex items-center justify-center space-x-1.5 whitespace-nowrap">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>Genera con IA</span>
+                  </button>
+                </div>
+              </div>
+            
             <!-- Anteprima Logo -->
             <div class="flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50">
               <span class="text-xs font-medium text-slate-400 mb-3">Anteprima Marchio / Logo</span>
