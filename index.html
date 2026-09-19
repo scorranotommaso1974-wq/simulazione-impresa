@@ -420,7 +420,51 @@
         btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
       }
     }
+// Funzione per chiamare la Supabase Edge Function 'genera-logo'
+    async function generaLogoConIA() {
+      const nomeAzienda = document.getElementById('ragioneSociale').value.trim();
+      const payoff = document.getElementById('payoff').value.trim();
+      const promptStile = document.getElementById('promptStile').value.trim();
+      const btn = document.getElementById('btnGeneraIA');
 
+      if (!nomeAzienda) {
+        alert("Prima di generare il logo con l'IA, inserisci il Nome Impresa / Ragione Sociale!");
+        document.getElementById('ragioneSociale').focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Creazione in corso...</span>`;
+
+      try {
+        const { data, error } = await db.functions.invoke('genera-logo', {
+          body: {
+            teamId: currentTeam.id,
+            nomeAzienda: nomeAzienda,
+            payoff: payoff,
+            promptStile: promptStile
+          }
+        });
+
+        if (error || !data || data.error) {
+          throw new Error(data?.error || error?.message || "Errore durante la generazione");
+        }
+
+        // Aggiorna l'anteprima e la sessione del gruppo
+        currentTeam.logo_url = data.logoUrl;
+        const preview = document.getElementById('imgAnteprimaLogo');
+        preview.src = data.logoUrl;
+        preview.classList.remove('hidden');
+        document.getElementById('placeholderLogo').classList.add('hidden');
+
+        alert("🎉 Logo generato con successo e assegnato alla tua impresa!");
+      } catch (err) {
+        alert("Errore Tutor IA: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-robot"></i><span>Genera con IA</span>`;
+      }
+    }
     // Navigazione tra le schede
     function cambiaTab(step) {
       [1, 2, 3].forEach(num => {
