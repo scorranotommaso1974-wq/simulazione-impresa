@@ -196,7 +196,7 @@
     const SUPABASE_URL = "https://qxthqvmuyldvrwnkwsys.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4dGhxdm11eWxkdnJ3bmt3c3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MDUxMTUsImV4cCI6MjA5NTk4MTExNX0.x1cUlhCrD3OQlkgchWu2QElOkw16G1q7SSn8lWqSoj8";
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Stato sessione locale
     let currentTeam = null;
