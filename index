@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulazione d'Impresa - Business Plan Lab</title>
+  <!-- Tailwind CSS per uno stile pulito e moderno -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Supabase JS Client v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen font-sans">
+
+  <!-- INTESTAZIONE -->
+  <header class="bg-indigo-700 text-white shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-5 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <i class="fa-solid fa-briefcase text-2xl text-amber-300"></i>
+        <div>
+          <h1 class="text-xl font-bold">Laboratorio Simulazione d'Impresa</h1>
+          <p class="text-xs text-indigo-200">Piattaforma guidata di sviluppo Business Plan</p>
+        </div>
+      </div>
+      <div id="badgeTeam" class="hidden items-center space-x-2 bg-indigo-800 px-3 py-1.5 rounded-lg border border-indigo-600">
+        <span class="text-xs text-indigo-300">Gruppo attivo:</span>
+        <span id="nomeGruppoBadge" class="font-semibold text-sm"></span>
+        <button onclick="eseguiLogout()" class="ml-2 text-indigo-300 hover:text-white text-xs underline">Esci</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8">
+
+    <!-- 1. SELEZIONE E LOGIN GRUPPO -->
+    <section id="sezioneLogin" class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+      <div class="text-center mb-6">
+        <div class="inline-flex p-3 bg-indigo-50 text-indigo-600 rounded-full mb-2">
+          <i class="fa-solid fa-users-gear text-2xl"></i>
+        </div>
+        <h2 class="text-xl font-bold text-slate-900">Accesso Gruppo di Lavoro</h2>
+        <p class="text-sm text-slate-500">Seleziona la tua classe e il team assegnato</p>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Classe</label>
+          <select id="selectClasse" onchange="caricaGruppiPerClasse()" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <option value="">-- Scegli Classe --</option>
+            <option value="3A">Classe 3ª</option>
+            <option value="4A">Classe 4ª</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Team / Gruppo</label>
+          <select id="selectTeam" disabled class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-slate-100 disabled:opacity-60">
+            <option value="">Seleziona prima la classe</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">PIN Segreto</label>
+          <input type="password" id="inputPin" maxlength="6" placeholder="Es. 1234" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+        </div>
+
+        <p id="erroreLogin" class="text-xs text-rose-600 font-medium hidden"></p>
+
+        <button onclick="eseguiAccesso()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg text-sm transition shadow-sm flex items-center justify-center space-x-2">
+          <span>Accedi alla Dashboard</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. DASHBOARD A STEP (Inizialmente nascosta) -->
+    <div id="dashboardApp" class="hidden space-y-6">
+
+      <!-- Barra di Navigazione Tab / Step -->
+      <div class="flex border-b border-slate-200 bg-white rounded-t-xl px-2">
+        <button onclick="cambiaTab(1)" id="tabBtn1" class="py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2">
+          <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 inline-flex items-center justify-center text-xs">1</span>
+          <span>Identità & Logo</span>
+        </button>
+        <button onclick="cambiaTab(2)" id="tabBtn2" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">2</span>
+          <span>Sede & Location</span>
+        </button>
+        <button onclick="cambiaTab(3)" id="tabBtn3" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">3</span>
+          <span>Target & Mercato</span>
+        </button>
+      </div>
+
+      <!-- CONTENUTO STEP -->
+      <div class="bg-white rounded-b-xl shadow-sm border border-slate-200 p-6 sm:p-8">
+        
+        <!-- STEP 1: IDENTITÀ & LOGO -->
+        <div id="stepContenuto1" class="space-y-6">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Step 1: Identità Aziendale</h3>
+            <p class="text-xs text-slate-500">Definisci la denominazione della tua impresa e crea l'identità visiva.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Ragione Sociale / Nome Impresa</label>
+                <input type="text" id="ragioneSociale" placeholder="Es. EcoSolutions S.r.l." class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Payoff / Slogan</label>
+                <input type="text" id="payoff" placeholder="Es. La tecnologia al servizio dell'ambiente" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Carica File Logo (PNG, JPG)</label>
+                <input type="file" id="fileLogo" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+              </div>
+            </div>
+
+            <!-- Anteprima Logo -->
+            <div class="flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50">
+              <span class="text-xs font-medium text-slate-400 mb-3">Anteprima Marchio / Logo</span>
+              <img id="imgAnteprimaLogo" src="" alt="Logo Aziendale" class="max-h-36 max-w-full rounded-lg shadow-sm object-contain hidden">
+              <div id="placeholderLogo" class="text-slate-400 text-center">
+                <i class="fa-regular fa-image text-4xl mb-1"></i>
+                <p class="text-xs">Nessun logo caricato</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex justify-end">
+            <button onclick="salvaStep1()" id="btnSalva1" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2 rounded-lg text-sm transition shadow-sm flex items-center space-x-2">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Salva Avanzamento</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: SEDE & LOCATION -->
+        <div id="stepContenuto2" class="space-y-6 hidden">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Step 2: Scelta della Sede e Motivazione</h3>
+            <p class="text-xs text-slate-500">Indica dove opererà fisicamente o digitalmente l'impresa e perché.</p>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Location e Vantaggi Logistici</label>
+              <textarea id="location" rows="4" placeholder="Es. Zona PIP / Centro storico. Vicinanza a nodi stradali, disponibilità di spazi e facilità di accesso per i clienti..." class="w-full rounded-lg border border-slate-300 p-3 text-sm focus:ring-2 focus:ring-indigo-500"></textarea>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex justify-end">
+            <button onclick="salvaStep2()" id="btnSalva2" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2 rounded-lg text-sm transition shadow-sm flex items-center space-x-2">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Salva Avanzamento</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3: TARGET & MERCATO -->
+        <div id="stepContenuto3" class="space-y-6 hidden">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Step 3: Target di Clientela</h3>
+            <p class="text-xs text-slate-500">Definisci a chi si rivolge l'offerta di beni o servizi.</p>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Segmento di Mercato e Buyer Personas</label>
+              <textarea id="targetClientela" rows="4" placeholder="Es. Famiglie e giovani tra i 18 e i 35 anni sensibili alla sostenibilità..." class="w-full rounded-lg border border-slate-300 p-3 text-sm focus:ring-2 focus:ring-indigo-500"></textarea>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex justify-end">
+            <button onclick="salvaStep3()" id="btnSalva3" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2 rounded-lg text-sm transition shadow-sm flex items-center space-x-2">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Salva Avanzamento</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    // ==========================================
+    // CONFIGURAZIONE SUPABASE
+    // ==========================================
+    const SUPABASE_URL = "https://qxthqvmuyldvrwnkwsys.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4dGhxdm11eWxkdnJ3bmt3c3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MDUxMTUsImV4cCI6MjA5NTk4MTExNX0.x1cUlhCrD3OQlkgchWu2QElOkw16G1q7SSn8lWqSoj8";
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Stato sessione locale
+    let currentTeam = null;
+
+    // 1. Caricamento gruppi al cambio classe
+    async function caricaGruppiPerClasse() {
+      const classe = document.getElementById('selectClasse').value;
+      const selectTeam = document.getElementById('selectTeam');
+      
+      selectTeam.innerHTML = '<option value="">-- Caricamento gruppi... --</option>';
+      selectTeam.disabled = true;
+
+      if (!classe) {
+        selectTeam.innerHTML = '<option value="">Seleziona prima la classe</option>';
+        return;
+      }
+
+      const { data: teams, error } = await supabase
+        .from('teams')
+        .select('id, nome_gruppo')
+        .eq('classe', classe)
+        .order('nome_gruppo', { ascending: true });
+
+      if (error || !teams || teams.length === 0) {
+        selectTeam.innerHTML = '<option value="">Nessun gruppo trovato</option>';
+        return;
+      }
+
+      selectTeam.innerHTML = '<option value="">-- Seleziona il tuo Gruppo --</option>';
+      teams.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t.id;
+        opt.textContent = t.nome_gruppo;
+        selectTeam.appendChild(opt);
+      });
+      selectTeam.disabled = false;
+      selectTeam.classList.remove('bg-slate-100');
+    }
+
+    // 2. Verifica PIN e Accesso Dashboard
+    async function eseguiAccesso() {
+      const teamId = document.getElementById('selectTeam').value;
+      const pin = document.getElementById('inputPin').value.trim();
+      const errBox = document.getElementById('erroreLogin');
+
+      errBox.classList.add('hidden');
+
+      if (!teamId || !pin) {
+        errBox.textContent = "Compila tutti i campi.";
+        errBox.classList.remove('hidden');
+        return;
+      }
+
+      const { data: team, error } = await supabase
+        .from('teams')
+        .select('*')
+        .eq('id', teamId)
+        .single();
+
+      if (error || !team || team.pin !== pin) {
+        errBox.textContent = "PIN errato o gruppo non valido. Riprova.";
+        errBox.classList.remove('hidden');
+        return;
+      }
+
+      // Salva sessione in memoria
+      currentTeam = team;
+
+      // Popola interfaccia
+      document.getElementById('nomeGruppoBadge').textContent = `${team.classe} - ${team.nome_gruppo}`;
+      document.getElementById('badgeTeam').classList.remove('hidden');
+      document.getElementById('badgeTeam').classList.add('flex');
+      document.getElementById('sezioneLogin').classList.add('hidden');
+      document.getElementById('dashboardApp').classList.remove('hidden');
+
+      // Popola i campi con i dati già salvati
+      popolaCampiTeam(team);
+    }
+
+    function popolaCampiTeam(team) {
+      document.getElementById('ragioneSociale').value = team.ragione_sociale || '';
+      document.getElementById('payoff').value = team.payoff || '';
+      document.getElementById('location').value = team.location || '';
+      document.getElementById('targetClientela').value = team.target_clientela || '';
+
+      if (team.logo_url) {
+        const preview = document.getElementById('imgAnteprimaLogo');
+        preview.src = team.logo_url;
+        preview.classList.remove('hidden');
+        document.getElementById('placeholderLogo').classList.add('hidden');
+      }
+    }
+
+    // 3. Salvataggio Step 1 (con upload opzionale logo su Storage)
+    async function salvaStep1() {
+      const btn = document.getElementById('btnSalva1');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
+
+      try {
+        const fileInput = document.getElementById('fileLogo');
+        let logoUrl = currentTeam.logo_url;
+
+        // Se l'utente ha selezionato un nuovo file
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          const fileExt = file.name.split('.').pop();
+          const filePath = `${currentTeam.id}/${Date.now()}.${fileExt}`;
+
+          const { error: uploadErr } = await supabase.storage
+            .from('team-logos')
+            .upload(filePath, file, { upsert: true });
+
+          if (uploadErr) throw uploadErr;
+
+          const { data: urlData } = supabase.storage
+            .from('team-logos')
+            .getPublicUrl(filePath);
+
+          logoUrl = urlData.publicUrl;
+        }
+
+        const updateData = {
+          ragione_sociale: document.getElementById('ragioneSociale').value.trim(),
+          payoff: document.getElementById('payoff').value.trim(),
+          logo_url: logoUrl,
+          updated_at: new Date().toISOString()
+        };
+
+        const { error: updateErr } = await supabase
+          .from('teams')
+          .update(updateData)
+          .eq('id', currentTeam.id);
+
+        if (updateErr) throw updateErr;
+
+        currentTeam.ragione_sociale = updateData.ragione_sociale;
+        currentTeam.payoff = updateData.payoff;
+        currentTeam.logo_url = updateData.logo_url;
+
+        if (logoUrl) {
+          const preview = document.getElementById('imgAnteprimaLogo');
+          preview.src = logoUrl;
+          preview.classList.remove('hidden');
+          document.getElementById('placeholderLogo').classList.add('hidden');
+        }
+
+        alert("Step 1 salvato correttamente!");
+      } catch (err) {
+        alert("Errore durante il salvataggio: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
+      }
+    }
+
+    // 4. Salvataggio Step 2 (Location)
+    async function salvaStep2() {
+      const btn = document.getElementById('btnSalva2');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
+
+      try {
+        const loc = document.getElementById('location').value.trim();
+        const { error } = await supabase
+          .from('teams')
+          .update({ location: loc, updated_at: new Date().toISOString() })
+          .eq('id', currentTeam.id);
+
+        if (error) throw error;
+        currentTeam.location = loc;
+        alert("Location salvata correttamente!");
+      } catch (err) {
+        alert("Errore durante il salvataggio: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
+      }
+    }
+
+    // 5. Salvataggio Step 3 (Target)
+    async function salvaStep3() {
+      const btn = document.getElementById('btnSalva3');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
+
+      try {
+        const target = document.getElementById('targetClientela').value.trim();
+        const { error } = await supabase
+          .from('teams')
+          .update({ target_clientela: target, updated_at: new Date().toISOString() })
+          .eq('id', currentTeam.id);
+
+        if (error) throw error;
+        currentTeam.target_clientela = target;
+        alert("Target di clientela salvato correttamente!");
+      } catch (err) {
+        alert("Errore durante il salvataggio: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
+      }
+    }
+
+    // Navigazione tra le schede
+    function cambiaTab(step) {
+      [1, 2, 3].forEach(num => {
+        const content = document.getElementById(`stepContenuto${num}`);
+        const btn = document.getElementById(`tabBtn${num}`);
+        if (num === step) {
+          content.classList.remove('hidden');
+          btn.className = "py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2";
+        } else {
+          content.classList.add('hidden');
+          btn.className = "py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2";
+        }
+      });
+    }
+
+    // Logout
+    function eseguiLogout() {
+      currentTeam = null;
+      document.getElementById('dashboardApp').classList.add('hidden');
+      document.getElementById('badgeTeam').classList.add('hidden');
+      document.getElementById('badgeTeam').classList.remove('flex');
+      document.getElementById('inputPin').value = '';
+      document.getElementById('sezioneLogin').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
