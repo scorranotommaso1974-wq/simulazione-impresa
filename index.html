@@ -90,6 +90,10 @@
           <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">3</span>
           <span>Target & Mercato</span>
         </button>
+        <button onclick="cambiaTab(4)" id="tabBtn4" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2">
+  <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">4</span>
+  <span>Business Model Canvas</span>
+</button>
       </div>
 
       <!-- CONTENUTO STEP -->
@@ -201,7 +205,104 @@
             </button>
           </div>
         </div>
+<!-- STEP 4: BUSINESS MODEL CANVAS -->
+        <div id="stepContenuto4" class="space-y-6 hidden">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Business Model Canvas</h3>
+              <p class="text-xs text-slate-500">Mappa visiva del modello di business della tua impresa nei 9 blocchi chiave.</p>
+            </div>
+            <button onclick="salvaCanvas()" id="btnSalvaCanvas" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-xs transition shadow-sm flex items-center space-x-1.5">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Salva Canvas</span>
+            </button>
+          </div>
 
+          <!-- Layout Canvas in Griglia (Stile Osterwalder) -->
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-3 bg-slate-100 p-3 rounded-xl border border-slate-200 text-xs">
+            
+            <!-- 1. Key Partners -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col md:row-span-2">
+              <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-handshake"></i> Partner Chiave
+              </label>
+              <span class="text-[10px] text-slate-400 mb-2">Fornitori strategici, alleanze, enti locali.</span>
+              <textarea id="bmc_partners" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[120px]"></textarea>
+            </div>
+
+            <!-- Colonna 2: Attività + Risorse -->
+            <div class="flex flex-col gap-3 md:row-span-2">
+              <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col flex-1">
+                <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
+                  <i class="fa-solid fa-list-check"></i> Attività Chiave
+                </label>
+                <span class="text-[10px] text-slate-400 mb-2">Cosa dobbiamo fare bene per funzionare.</span>
+                <textarea id="bmc_activities" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[60px]"></textarea>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col flex-1">
+                <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
+                  <i class="fa-solid fa-cubes"></i> Risorse Chiave
+                </label>
+                <span class="text-[10px] text-slate-400 mb-2">Beni materiali, umani, brevetti, software.</span>
+                <textarea id="bmc_resources" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[60px]"></textarea>
+              </div>
+            </div>
+
+            <!-- 4. Value Propositions (Al centro) -->
+            <div class="bg-white p-3 rounded-lg border-2 border-indigo-300 flex flex-col md:row-span-2 shadow-xs">
+              <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-gift"></i> Proposta di Valore
+              </label>
+              <span class="text-[10px] text-slate-400 mb-2">Che problema risolviamo? Qual è il valore unico?</span>
+              <textarea id="bmc_value" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[120px]"></textarea>
+            </div>
+
+            <!-- Colonna 4: Relazioni + Canali -->
+            <div class="flex flex-col gap-3 md:row-span-2">
+              <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col flex-1">
+                <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
+                  <i class="fa-solid fa-heart"></i> Relazioni Clienti
+                </label>
+                <span class="text-[10px] text-slate-400 mb-2">Assistenza, community, fidelizzazione.</span>
+                <textarea id="bmc_relationships" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[60px]"></textarea>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col flex-1">
+                <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
+                  <i class="fa-solid fa-truck"></i> Canali
+                </label>
+                <span class="text-[10px] text-slate-400 mb-2">Come raggiungiamo i clienti e vendiamo.</span>
+                <textarea id="bmc_channels" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[60px]"></textarea>
+              </div>
+            </div>
+
+            <!-- 7. Customer Segments -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col md:row-span-2">
+              <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-users"></i> Segmenti Clienti
+              </label>
+              <span class="text-[10px] text-slate-400 mb-2">Per chi creiamo valore? Chi sono i clienti?</span>
+              <textarea id="bmc_segments" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[120px]"></textarea>
+            </div>
+
+            <!-- Riga inferiore: Costi & Ricavi -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col md:col-span-2 md:col-start-1">
+              <label class="font-bold text-rose-700 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-coins"></i> Struttura dei Costi
+              </label>
+              <span class="text-[10px] text-slate-400 mb-1">Quali sono i costi più rilevanti (fissi, variabili, personale)?</span>
+              <textarea id="bmc_costs" class="w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 h-20"></textarea>
+            </div>
+
+            <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col md:col-span-3 md:col-start-3">
+              <label class="font-bold text-emerald-700 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-money-bill-trend-up"></i> Flussi di Ricavi
+              </label>
+              <span class="text-[10px] text-slate-400 mb-1">Come guadagna l'azienda (vendita diretta, abbonamenti, noleggio)?</span>
+              <textarea id="bmc_revenues" class="w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 h-20"></textarea>
+            </div>
+
+          </div>
+        </div>
       </div>
 
     </div>
@@ -301,7 +402,26 @@
       document.getElementById('payoff').value = team.payoff || '';
       document.getElementById('location').value = team.location || '';
       document.getElementById('targetClientela').value = team.target_clientela || '';
+async function caricaCanvas() {
+      if (!currentTeam) return;
+      const { data, error } = await db
+        .from('business_model_canvas')
+        .select('*')
+        .eq('team_id', currentTeam.id)
+        .maybeSingle();
 
+      if (data) {
+        document.getElementById('bmc_partners').value = data.key_partners || '';
+        document.getElementById('bmc_activities').value = data.key_activities || '';
+        document.getElementById('bmc_resources').value = data.key_resources || '';
+        document.getElementById('bmc_value').value = data.value_propositions || '';
+        document.getElementById('bmc_relationships').value = data.customer_relationships || '';
+        document.getElementById('bmc_channels').value = data.channels || '';
+        document.getElementById('bmc_segments').value = data.customer_segments || '';
+        document.getElementById('bmc_costs').value = data.cost_structure || '';
+        document.getElementById('bmc_revenues').value = data.revenue_streams || '';
+      }
+    }
       if (team.logo_url) {
         const preview = document.getElementById('imgAnteprimaLogo');
         preview.src = team.logo_url;
@@ -372,7 +492,40 @@
         btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
       }
     }
+async function salvaCanvas() {
+      if (!currentTeam) return;
+      const btn = document.getElementById('btnSalvaCanvas');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
 
+      const payload = {
+        team_id: currentTeam.id,
+        key_partners: document.getElementById('bmc_partners').value.trim(),
+        key_activities: document.getElementById('bmc_activities').value.trim(),
+        key_resources: document.getElementById('bmc_resources').value.trim(),
+        value_propositions: document.getElementById('bmc_value').value.trim(),
+        customer_relationships: document.getElementById('bmc_relationships').value.trim(),
+        channels: document.getElementById('bmc_channels').value.trim(),
+        customer_segments: document.getElementById('bmc_segments').value.trim(),
+        cost_structure: document.getElementById('bmc_costs').value.trim(),
+        revenue_streams: document.getElementById('bmc_revenues').value.trim(),
+        updated_at: new Date().toISOString()
+      };
+
+      try {
+        const { error } = await db
+          .from('business_model_canvas')
+          .upsert(payload, { onConflict: 'team_id' });
+
+        if (error) throw error;
+        alert("🎉 Business Model Canvas salvato con successo!");
+      } catch (err) {
+        alert("Errore salvataggio Canvas: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Canvas</span>`;
+      }
+    }
     // 4. Salvataggio Step 2 (Location)
     async function salvaStep2() {
       const btn = document.getElementById('btnSalva2');
@@ -465,11 +618,12 @@
         btn.innerHTML = `<i class="fa-solid fa-robot"></i><span>Genera con IA</span>`;
       }
     }
-    // Navigazione tra le schede
     function cambiaTab(step) {
-      [1, 2, 3].forEach(num => {
+      [1, 2, 3, 4].forEach(num => {
         const content = document.getElementById(`stepContenuto${num}`);
         const btn = document.getElementById(`tabBtn${num}`);
+        if (!content || !btn) return;
+        
         if (num === step) {
           content.classList.remove('hidden');
           btn.className = "py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2";
@@ -479,7 +633,6 @@
         }
       });
     }
-
     // Logout
     function eseguiLogout() {
       currentTeam = null;
