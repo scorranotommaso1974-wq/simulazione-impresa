@@ -77,23 +77,23 @@
     <div id="dashboardApp" class="hidden space-y-6">
 
       <!-- Barra di Navigazione Tab / Step -->
-      <div class="flex border-b border-slate-200 bg-white rounded-t-xl px-2">
-        <button onclick="cambiaTab(1)" id="tabBtn1" class="py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2">
+      <div class="flex border-b border-slate-200 bg-white rounded-t-xl px-2 overflow-x-auto">
+        <button onclick="cambiaTab(1)" id="tabBtn1" class="py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2 whitespace-nowrap">
           <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 inline-flex items-center justify-center text-xs">1</span>
           <span>Identità & Logo</span>
         </button>
-        <button onclick="cambiaTab(2)" id="tabBtn2" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2">
+        <button onclick="cambiaTab(2)" id="tabBtn2" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2 whitespace-nowrap">
           <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">2</span>
           <span>Sede & Location</span>
         </button>
-        <button onclick="cambiaTab(3)" id="tabBtn3" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2">
+        <button onclick="cambiaTab(3)" id="tabBtn3" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2 whitespace-nowrap">
           <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">3</span>
           <span>Target & Mercato</span>
         </button>
-        <button onclick="cambiaTab(4)" id="tabBtn4" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2">
-  <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">4</span>
-  <span>Business Model Canvas</span>
-</button>
+        <button onclick="cambiaTab(4)" id="tabBtn4" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2 whitespace-nowrap">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">4</span>
+          <span>Business Model Canvas</span>
+        </button>
       </div>
 
       <!-- CONTENUTO STEP -->
@@ -118,13 +118,8 @@
                 <input type="text" id="payoff" placeholder="Es. La tecnologia al servizio dell'ambiente" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
               </div>
 
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Carica File Logo (PNG, JPG)</label>
-                <input type="file" id="fileLogo" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
-              </div>
-            </div>
-<!-- BOX TUTOR IA PER IL LOGO -->
-              <div class="bg-indigo-50/80 border border-indigo-200 rounded-xl p-4 mb-3">
+              <!-- BOX TUTOR IA PER IL LOGO -->
+              <div class="bg-indigo-50/80 border border-indigo-200 rounded-xl p-4">
                 <div class="flex items-center space-x-2 text-indigo-800 font-semibold mb-1">
                   <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i>
                   <span class="text-sm">Tutor IA: Generatore Marchio & Logo</span>
@@ -142,6 +137,12 @@
                   </button>
                 </div>
               </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Oppure carica un file logo (PNG, JPG)</label>
+                <input type="file" id="fileLogo" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+              </div>
+            </div>
             
             <!-- Anteprima Logo -->
             <div class="flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50">
@@ -205,7 +206,8 @@
             </button>
           </div>
         </div>
-<!-- STEP 4: BUSINESS MODEL CANVAS -->
+
+        <!-- STEP 4: BUSINESS MODEL CANVAS -->
         <div id="stepContenuto4" class="space-y-6 hidden">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
             <div>
@@ -303,6 +305,7 @@
 
           </div>
         </div>
+
       </div>
 
     </div>
@@ -316,7 +319,7 @@
     const SUPABASE_URL = "https://qxthqvmuyldvrwnkwsys.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4dGhxdm11eWxkdnJ3bmt3c3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MDUxMTUsImV4cCI6MjA5NTk4MTExNX0.x1cUlhCrD3OQlkgchWu2QElOkw16G1q7SSn8lWqSoj8";
 
-  // Utilizziamo 'db' per evitare il conflitto con la variabile globale 'supabase'
+    // Client Supabase
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Stato sessione locale
@@ -393,8 +396,10 @@
       document.getElementById('sezioneLogin').classList.add('hidden');
       document.getElementById('dashboardApp').classList.remove('hidden');
 
-      // Popola i campi con i dati già salvati
+      // Popola i campi con i dati salvati
       popolaCampiTeam(team);
+      // Carica i dati del Canvas da Supabase
+      caricaCanvas();
     }
 
     function popolaCampiTeam(team) {
@@ -402,7 +407,20 @@
       document.getElementById('payoff').value = team.payoff || '';
       document.getElementById('location').value = team.location || '';
       document.getElementById('targetClientela').value = team.target_clientela || '';
-async function caricaCanvas() {
+
+      if (team.logo_url) {
+        const preview = document.getElementById('imgAnteprimaLogo');
+        preview.src = team.logo_url;
+        preview.classList.remove('hidden');
+        document.getElementById('placeholderLogo').classList.add('hidden');
+      } else {
+        document.getElementById('imgAnteprimaLogo').classList.add('hidden');
+        document.getElementById('placeholderLogo').classList.remove('hidden');
+      }
+    }
+
+    // Carica dati del Canvas
+    async function caricaCanvas() {
       if (!currentTeam) return;
       const { data, error } = await db
         .from('business_model_canvas')
@@ -422,15 +440,8 @@ async function caricaCanvas() {
         document.getElementById('bmc_revenues').value = data.revenue_streams || '';
       }
     }
-      if (team.logo_url) {
-        const preview = document.getElementById('imgAnteprimaLogo');
-        preview.src = team.logo_url;
-        preview.classList.remove('hidden');
-        document.getElementById('placeholderLogo').classList.add('hidden');
-      }
-    }
 
-    // 3. Salvataggio Step 1 (con upload opzionale logo su Storage)
+    // 3. Salvataggio Step 1 (Identità & Logo)
     async function salvaStep1() {
       const btn = document.getElementById('btnSalva1');
       btn.disabled = true;
@@ -440,7 +451,7 @@ async function caricaCanvas() {
         const fileInput = document.getElementById('fileLogo');
         let logoUrl = currentTeam.logo_url;
 
-        // Se l'utente ha selezionato un nuovo file
+        // Upload nuovo file se presente
         if (fileInput.files.length > 0) {
           const file = fileInput.files[0];
           const fileExt = file.name.split('.').pop();
@@ -492,40 +503,52 @@ async function caricaCanvas() {
         btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
       }
     }
-async function salvaCanvas() {
-      if (!currentTeam) return;
-      const btn = document.getElementById('btnSalvaCanvas');
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
 
-      const payload = {
-        team_id: currentTeam.id,
-        key_partners: document.getElementById('bmc_partners').value.trim(),
-        key_activities: document.getElementById('bmc_activities').value.trim(),
-        key_resources: document.getElementById('bmc_resources').value.trim(),
-        value_propositions: document.getElementById('bmc_value').value.trim(),
-        customer_relationships: document.getElementById('bmc_relationships').value.trim(),
-        channels: document.getElementById('bmc_channels').value.trim(),
-        customer_segments: document.getElementById('bmc_segments').value.trim(),
-        cost_structure: document.getElementById('bmc_costs').value.trim(),
-        revenue_streams: document.getElementById('bmc_revenues').value.trim(),
-        updated_at: new Date().toISOString()
-      };
+    // Generazione Logo con IA
+    async function generaLogoConIA() {
+      const nomeAzienda = document.getElementById('ragioneSociale').value.trim();
+      const payoff = document.getElementById('payoff').value.trim();
+      const promptStile = document.getElementById('promptStile').value.trim();
+      const btn = document.getElementById('btnGeneraIA');
+
+      if (!nomeAzienda) {
+        alert("Prima di generare il logo con l'IA, inserisci il Nome Impresa / Ragione Sociale!");
+        document.getElementById('ragioneSociale').focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Creazione in corso...</span>`;
 
       try {
-        const { error } = await db
-          .from('business_model_canvas')
-          .upsert(payload, { onConflict: 'team_id' });
+        const { data, error } = await db.functions.invoke('genera-logo', {
+          body: {
+            teamId: currentTeam.id,
+            nomeAzienda: nomeAzienda,
+            payoff: payoff,
+            promptStile: promptStile
+          }
+        });
 
-        if (error) throw error;
-        alert("🎉 Business Model Canvas salvato con successo!");
+        if (error || !data || data.error) {
+          throw new Error(data?.error || error?.message || "Errore durante la generazione");
+        }
+
+        currentTeam.logo_url = data.logoUrl;
+        const preview = document.getElementById('imgAnteprimaLogo');
+        preview.src = data.logoUrl;
+        preview.classList.remove('hidden');
+        document.getElementById('placeholderLogo').classList.add('hidden');
+
+        alert("🎉 Logo generato con successo e assegnato alla tua impresa!");
       } catch (err) {
-        alert("Errore salvataggio Canvas: " + err.message);
+        alert("Errore Tutor IA: " + err.message);
       } finally {
         btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Canvas</span>`;
+        btn.innerHTML = `<i class="fa-solid fa-robot"></i><span>Genera con IA</span>`;
       }
     }
+
     // 4. Salvataggio Step 2 (Location)
     async function salvaStep2() {
       const btn = document.getElementById('btnSalva2');
@@ -573,51 +596,44 @@ async function salvaCanvas() {
         btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
       }
     }
-// Funzione per chiamare la Supabase Edge Function 'genera-logo'
-    async function generaLogoConIA() {
-      const nomeAzienda = document.getElementById('ragioneSociale').value.trim();
-      const payoff = document.getElementById('payoff').value.trim();
-      const promptStile = document.getElementById('promptStile').value.trim();
-      const btn = document.getElementById('btnGeneraIA');
 
-      if (!nomeAzienda) {
-        alert("Prima di generare il logo con l'IA, inserisci il Nome Impresa / Ragione Sociale!");
-        document.getElementById('ragioneSociale').focus();
-        return;
-      }
-
+    // 6. Salvataggio Step 4 (Canvas)
+    async function salvaCanvas() {
+      if (!currentTeam) return;
+      const btn = document.getElementById('btnSalvaCanvas');
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Creazione in corso...</span>`;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
+
+      const payload = {
+        team_id: currentTeam.id,
+        key_partners: document.getElementById('bmc_partners').value.trim(),
+        key_activities: document.getElementById('bmc_activities').value.trim(),
+        key_resources: document.getElementById('bmc_resources').value.trim(),
+        value_propositions: document.getElementById('bmc_value').value.trim(),
+        customer_relationships: document.getElementById('bmc_relationships').value.trim(),
+        channels: document.getElementById('bmc_channels').value.trim(),
+        customer_segments: document.getElementById('bmc_segments').value.trim(),
+        cost_structure: document.getElementById('bmc_costs').value.trim(),
+        revenue_streams: document.getElementById('bmc_revenues').value.trim(),
+        updated_at: new Date().toISOString()
+      };
 
       try {
-        const { data, error } = await db.functions.invoke('genera-logo', {
-          body: {
-            teamId: currentTeam.id,
-            nomeAzienda: nomeAzienda,
-            payoff: payoff,
-            promptStile: promptStile
-          }
-        });
+        const { error } = await db
+          .from('business_model_canvas')
+          .upsert(payload, { onConflict: 'team_id' });
 
-        if (error || !data || data.error) {
-          throw new Error(data?.error || error?.message || "Errore durante la generazione");
-        }
-
-        // Aggiorna l'anteprima e la sessione del gruppo
-        currentTeam.logo_url = data.logoUrl;
-        const preview = document.getElementById('imgAnteprimaLogo');
-        preview.src = data.logoUrl;
-        preview.classList.remove('hidden');
-        document.getElementById('placeholderLogo').classList.add('hidden');
-
-        alert("🎉 Logo generato con successo e assegnato alla tua impresa!");
+        if (error) throw error;
+        alert("🎉 Business Model Canvas salvato con successo!");
       } catch (err) {
-        alert("Errore Tutor IA: " + err.message);
+        alert("Errore salvataggio Canvas: " + err.message);
       } finally {
         btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-robot"></i><span>Genera con IA</span>`;
+        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Canvas</span>`;
       }
     }
+
+    // Navigazione tra le schede
     function cambiaTab(step) {
       [1, 2, 3, 4].forEach(num => {
         const content = document.getElementById(`stepContenuto${num}`);
@@ -626,13 +642,14 @@ async function salvaCanvas() {
         
         if (num === step) {
           content.classList.remove('hidden');
-          btn.className = "py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2";
+          btn.className = "py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2 whitespace-nowrap";
         } else {
           content.classList.add('hidden');
-          btn.className = "py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2";
+          btn.className = "py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2 whitespace-nowrap";
         }
       });
     }
+
     // Logout
     function eseguiLogout() {
       currentTeam = null;
@@ -643,5 +660,5 @@ async function salvaCanvas() {
       document.getElementById('sezioneLogin').classList.remove('hidden');
     }
   </script>
-  </body>
+</body>
 </html>
