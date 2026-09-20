@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulazione d'Impresa - Business Plan Lab</title>
-  <!-- Tailwind CSS per uno stile pulito e moderno -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Supabase JS Client v2 -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -19,7 +17,7 @@
         <i class="fa-solid fa-briefcase text-2xl text-amber-300"></i>
         <div>
           <h1 class="text-xl font-bold">Laboratorio Simulazione d'Impresa</h1>
-          <p class="text-xs text-indigo-200">Piattaforma guidata di sviluppo Business Plan</p>
+          <p class="text-xs text-indigo-200">Dai sogni all'impresa: sviluppo guidato del Business Plan</p>
         </div>
       </div>
       <div id="badgeTeam" class="hidden items-center space-x-2 bg-indigo-800 px-3 py-1.5 rounded-lg border border-indigo-600">
@@ -32,7 +30,7 @@
 
   <main class="max-w-5xl mx-auto px-4 py-8">
 
-    <!-- 1. SELEZIONE E LOGIN GRUPPO -->
+    <!-- 1. LOGIN GRUPPO -->
     <section id="sezioneLogin" class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
       <div class="text-center mb-6">
         <div class="inline-flex p-3 bg-indigo-50 text-indigo-600 rounded-full mb-2">
@@ -73,34 +71,81 @@
       </div>
     </section>
 
-    <!-- 2. DASHBOARD A STEP (Inizialmente nascosta) -->
+    <!-- 2. DASHBOARD A STEP -->
     <div id="dashboardApp" class="hidden space-y-6">
 
-      <!-- Barra di Navigazione Tab / Step -->
+      <!-- Barra di Navigazione Tab -->
       <div class="flex border-b border-slate-200 bg-white rounded-t-xl px-2 overflow-x-auto">
-        <button onclick="cambiaTab(1)" id="tabBtn1" class="py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2 whitespace-nowrap">
-          <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 inline-flex items-center justify-center text-xs">1</span>
+        <button onclick="cambiaTab(0)" id="tabBtn0" class="py-4 px-4 text-xs sm:text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-1.5 whitespace-nowrap">
+          <i class="fa-solid fa-fire-flame-curved text-amber-500"></i>
+          <span>Ispirazione & Sogni</span>
+        </button>
+        <button onclick="cambiaTab(1)" id="tabBtn1" class="py-4 px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-1.5 whitespace-nowrap">
+          <span class="w-4 h-4 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-[10px]">1</span>
           <span>Identità & Logo</span>
         </button>
-        <button onclick="cambiaTab(2)" id="tabBtn2" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2 whitespace-nowrap">
-          <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">2</span>
+        <button onclick="cambiaTab(2)" id="tabBtn2" class="py-4 px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-1.5 whitespace-nowrap">
+          <span class="w-4 h-4 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-[10px]">2</span>
           <span>Sede & Location</span>
         </button>
-        <button onclick="cambiaTab(3)" id="tabBtn3" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2 whitespace-nowrap">
-          <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">3</span>
+        <button onclick="cambiaTab(3)" id="tabBtn3" class="py-4 px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-1.5 whitespace-nowrap">
+          <span class="w-4 h-4 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-[10px]">3</span>
           <span>Target & Mercato</span>
         </button>
-        <button onclick="cambiaTab(4)" id="tabBtn4" class="py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2 whitespace-nowrap">
-          <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-xs">4</span>
+        <button onclick="cambiaTab(4)" id="tabBtn4" class="py-4 px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-1.5 whitespace-nowrap">
+          <span class="w-4 h-4 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-[10px]">4</span>
           <span>Business Model Canvas</span>
+        </button>
+        <button onclick="cambiaTab(5)" id="tabBtn5" class="py-4 px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-1.5 whitespace-nowrap">
+          <span class="w-4 h-4 rounded-full bg-slate-100 text-slate-600 inline-flex items-center justify-center text-[10px]">5</span>
+          <span>Brand Identity & Bisogni</span>
         </button>
       </div>
 
-      <!-- CONTENUTO STEP -->
+      <!-- CONTENUTI STEP -->
       <div class="bg-white rounded-b-xl shadow-sm border border-slate-200 p-6 sm:p-8">
         
+        <!-- STEP 0: ISPIRAZIONE & SOGNI (STEVE JOBS STANFORD) -->
+        <div id="stepContenuto0" class="space-y-6">
+          <div class="border-b border-slate-100 pb-4">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-800 uppercase tracking-wide">Punto di partenza</span>
+            <h3 class="text-xl font-bold text-slate-900 mt-1">Seguire i propri sogni per creare valore</h3>
+            <p class="text-xs sm:text-sm text-slate-500">Un'impresa di successo nasce prima di tutto da una passione autentica e dal desiderio di risolvere un problema reale per gli altri.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- Video YouTube Steve Jobs -->
+            <div class="lg:col-span-7 bg-slate-900 rounded-xl overflow-hidden shadow-md aspect-video">
+              <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/UF8uR6Z6KLc?si=jobs" title="Steve Jobs Stanford Speech" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <!-- Sintesi e riflessione -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 text-xs text-amber-900 space-y-2">
+                <p class="font-bold flex items-center gap-1 text-sm text-amber-950">
+                  <i class="fa-solid fa-quote-left text-amber-500"></i> "Stay Hungry, Stay Foolish"
+                </p>
+                <p><em>"L'unico modo per fare un ottimo lavoro è amare quello che fate. Se non l'avete ancora trovato, continuate a cercare."</em></p>
+                <p class="text-[11px] text-amber-800">Nel vostro percorso di simulazione, la vostra impresa deve essere la risposta a un bisogno concreto, alimentata da ciò che vi appassiona.</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Riflessione del Team: Cosa ci appassiona e che bisogno vogliamo soddisfare?</label>
+                <textarea id="riflessioneTeam" rows="4" placeholder="Es. Vogliamo valorizzare i prodotti del nostro territorio perché crediamo nella sostenibilità e vogliamo offrire un'alternativa sana ai consumatori..." class="w-full rounded-lg border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-indigo-500"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex justify-end">
+            <button onclick="salvaRiflessione()" id="btnSalva0" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-5 py-2 rounded-lg text-xs transition shadow-sm flex items-center space-x-1.5">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Salva Riflessione & Continua</span>
+            </button>
+          </div>
+        </div>
+
         <!-- STEP 1: IDENTITÀ & LOGO -->
-        <div id="stepContenuto1" class="space-y-6">
+        <div id="stepContenuto1" class="space-y-6 hidden">
           <div>
             <h3 class="text-lg font-bold text-slate-900">Step 1: Identità Aziendale</h3>
             <p class="text-xs text-slate-500">Definisci la denominazione della tua impresa e crea l'identità visiva.</p>
@@ -125,7 +170,7 @@
                   <span class="text-sm">Tutor IA: Generatore Marchio & Logo</span>
                 </div>
                 <p class="text-xs text-slate-600 mb-3">
-                  Non hai un'immagine pronta? Descrivi lo stile (es. <em>"Stile flat, colori verde e oro, icona di una foglia di ulivo stilizzata"</em>) e l'IA creerà il logo per la tua impresa.
+                  Non hai un'immagine pronta? Descrivi lo stile (es. <em>"Stile flat, colori verde e oro, icona di una foglia stilizzata"</em>) e l'IA creerà il logo per la tua impresa.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-2">
                   <input type="text" id="promptStile" placeholder="Descrivi stile, simboli e colori..." 
@@ -207,20 +252,38 @@
           </div>
         </div>
 
-        <!-- STEP 4: BUSINESS MODEL CANVAS -->
+        <!-- STEP 4: BUSINESS MODEL CANVAS CON TUTOR IA -->
         <div id="stepContenuto4" class="space-y-6 hidden">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div>
               <h3 class="text-lg font-bold text-slate-900">Business Model Canvas</h3>
-              <p class="text-xs text-slate-500">Mappa visiva del modello di business della tua impresa nei 9 blocchi chiave.</p>
+              <p class="text-xs text-slate-500">I 9 blocchi per mappare il valore generato e i bisogni soddisfatti.</p>
             </div>
-            <button onclick="salvaCanvas()" id="btnSalvaCanvas" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-xs transition shadow-sm flex items-center space-x-1.5">
-              <i class="fa-solid fa-floppy-disk"></i>
-              <span>Salva Canvas</span>
-            </button>
+            <div class="flex gap-2">
+              <button onclick="chiediFeedbackTutorCanvas()" id="btnTutorCanvas" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-3.5 py-2 rounded-lg text-xs transition shadow-sm flex items-center space-x-1.5">
+                <i class="fa-solid fa-chalkboard-user text-amber-300"></i>
+                <span>Revisiona con Tutor IA</span>
+              </button>
+              <button onclick="salvaCanvas()" id="btnSalvaCanvas" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-xs transition shadow-sm flex items-center space-x-1.5">
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Salva Canvas</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Layout Canvas in Griglia (Stile Osterwalder) -->
+          <!-- BOX RISPOSTA FEEDBACK TUTOR IA (Inizialmente nascosto) -->
+          <div id="boxFeedbackTutor" class="hidden bg-indigo-50 border border-indigo-200 rounded-xl p-4 relative">
+            <button onclick="document.getElementById('boxFeedbackTutor').classList.add('hidden')" class="absolute top-3 right-3 text-slate-400 hover:text-slate-600">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-2 text-indigo-900 font-bold text-sm mb-2">
+              <i class="fa-solid fa-lightbulb text-amber-500"></i>
+              <span>Feedback Pedagogico del Tutor IA sul Canvas</span>
+            </div>
+            <div id="testoFeedbackTutor" class="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap"></div>
+          </div>
+
+          <!-- Layout Canvas in Griglia (Osterwalder) -->
           <div class="grid grid-cols-1 md:grid-cols-5 gap-3 bg-slate-100 p-3 rounded-xl border border-slate-200 text-xs">
             
             <!-- 1. Key Partners -->
@@ -228,8 +291,8 @@
               <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
                 <i class="fa-solid fa-handshake"></i> Partner Chiave
               </label>
-              <span class="text-[10px] text-slate-400 mb-2">Fornitori strategici, alleanze, enti locali.</span>
-              <textarea id="bmc_partners" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[120px]"></textarea>
+              <span class="text-[10px] text-slate-400 mb-2">Fornitori, consorzi, enti locali.</span>
+              <textarea id="bmc_partners" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[110px]"></textarea>
             </div>
 
             <!-- Colonna 2: Attività + Risorse -->
@@ -238,25 +301,25 @@
                 <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
                   <i class="fa-solid fa-list-check"></i> Attività Chiave
                 </label>
-                <span class="text-[10px] text-slate-400 mb-2">Cosa dobbiamo fare bene per funzionare.</span>
-                <textarea id="bmc_activities" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[60px]"></textarea>
+                <span class="text-[10px] text-slate-400 mb-1">Processi essenziali di produzione/servizio.</span>
+                <textarea id="bmc_activities" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[50px]"></textarea>
               </div>
               <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col flex-1">
                 <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
                   <i class="fa-solid fa-cubes"></i> Risorse Chiave
                 </label>
-                <span class="text-[10px] text-slate-400 mb-2">Beni materiali, umani, brevetti, software.</span>
-                <textarea id="bmc_resources" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[60px]"></textarea>
+                <span class="text-[10px] text-slate-400 mb-1">Beni strumentali, brevetti, competenze.</span>
+                <textarea id="bmc_resources" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[50px]"></textarea>
               </div>
             </div>
 
-            <!-- 4. Value Propositions (Al centro) -->
+            <!-- 4. Value Propositions -->
             <div class="bg-white p-3 rounded-lg border-2 border-indigo-300 flex flex-col md:row-span-2 shadow-xs">
               <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
                 <i class="fa-solid fa-gift"></i> Proposta di Valore
               </label>
-              <span class="text-[10px] text-slate-400 mb-2">Che problema risolviamo? Qual è il valore unico?</span>
-              <textarea id="bmc_value" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[120px]"></textarea>
+              <span class="text-[10px] text-slate-400 mb-2">Quale bisogno reale soddisfiamo? Perché scelgono noi?</span>
+              <textarea id="bmc_value" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[110px]"></textarea>
             </div>
 
             <!-- Colonna 4: Relazioni + Canali -->
@@ -265,15 +328,15 @@
                 <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
                   <i class="fa-solid fa-heart"></i> Relazioni Clienti
                 </label>
-                <span class="text-[10px] text-slate-400 mb-2">Assistenza, community, fidelizzazione.</span>
-                <textarea id="bmc_relationships" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[60px]"></textarea>
+                <span class="text-[10px] text-slate-400 mb-1">Fidelizzazione, assistenza, community.</span>
+                <textarea id="bmc_relationships" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[50px]"></textarea>
               </div>
               <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col flex-1">
                 <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
                   <i class="fa-solid fa-truck"></i> Canali
                 </label>
-                <span class="text-[10px] text-slate-400 mb-2">Come raggiungiamo i clienti e vendiamo.</span>
-                <textarea id="bmc_channels" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[60px]"></textarea>
+                <span class="text-[10px] text-slate-400 mb-1">Come raggiungiamo e vendiamo al cliente.</span>
+                <textarea id="bmc_channels" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[50px]"></textarea>
               </div>
             </div>
 
@@ -282,8 +345,8 @@
               <label class="font-bold text-indigo-700 mb-1 flex items-center gap-1">
                 <i class="fa-solid fa-users"></i> Segmenti Clienti
               </label>
-              <span class="text-[10px] text-slate-400 mb-2">Per chi creiamo valore? Chi sono i clienti?</span>
-              <textarea id="bmc_segments" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[120px]"></textarea>
+              <span class="text-[10px] text-slate-400 mb-2">A chi ci rivolgiamo? Quali profili di acquirenti?</span>
+              <textarea id="bmc_segments" class="flex-1 w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 min-h-[110px]"></textarea>
             </div>
 
             <!-- Riga inferiore: Costi & Ricavi -->
@@ -291,18 +354,74 @@
               <label class="font-bold text-rose-700 mb-1 flex items-center gap-1">
                 <i class="fa-solid fa-coins"></i> Struttura dei Costi
               </label>
-              <span class="text-[10px] text-slate-400 mb-1">Quali sono i costi più rilevanti (fissi, variabili, personale)?</span>
-              <textarea id="bmc_costs" class="w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 h-20"></textarea>
+              <span class="text-[10px] text-slate-400 mb-1">Costi più significativi (fissi, variabili, personale).</span>
+              <textarea id="bmc_costs" class="w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 h-16"></textarea>
             </div>
 
             <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col md:col-span-3 md:col-start-3">
               <label class="font-bold text-emerald-700 mb-1 flex items-center gap-1">
                 <i class="fa-solid fa-money-bill-trend-up"></i> Flussi di Ricavi
               </label>
-              <span class="text-[10px] text-slate-400 mb-1">Come guadagna l'azienda (vendita diretta, abbonamenti, noleggio)?</span>
-              <textarea id="bmc_revenues" class="w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 h-20"></textarea>
+              <span class="text-[10px] text-slate-400 mb-1">Come guadagna l'azienda (vendite, abbonamenti, canoni).</span>
+              <textarea id="bmc_revenues" class="w-full p-2 border border-slate-200 rounded resize-none focus:outline-indigo-500 h-16"></textarea>
             </div>
 
+          </div>
+        </div>
+
+        <!-- STEP 5: BRAND IDENTITY & BISOGNI (SINTESI OPERATIVA) -->
+        <div id="stepContenuto5" class="space-y-6 hidden">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-800 uppercase tracking-wide">Risultato Strategico</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-1">Brand Identity & Soddisfacimento dei Bisogni</h3>
+              <p class="text-xs sm:text-sm text-slate-500">Dalla mappa del Canvas alla definizione dell'anima e dello scopo dell'impresa.</p>
+            </div>
+            <button onclick="generaBrandIdentityConIA()" id="btnGeneraBrandIA" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-xs transition shadow-sm flex items-center space-x-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
+              <span>Sintetizza con Tutor IA</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                  <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Business Idea (Il cuore dell'idea)
+                </label>
+                <textarea id="brandBusinessIdea" rows="3" placeholder="In sintesi: cosa offriamo, a chi, e perché risolve un problema..." class="w-full rounded-lg border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-indigo-500"></textarea>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                  <i class="fa-solid fa-eye text-indigo-500 mr-1"></i> Vision (Il sogno futuro)
+                </label>
+                <textarea id="brandVision" rows="3" placeholder="Come immaginiamo il mondo o il nostro territorio tra 5-10 anni grazie al nostro lavoro..." class="w-full rounded-lg border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-indigo-500"></textarea>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                  <i class="fa-solid fa-compass text-emerald-500 mr-1"></i> Mission (L'impegno quotidiano)
+                </label>
+                <textarea id="brandMission" rows="3" placeholder="Cosa facciamo ogni giorno in modo pratico per raggiungere la nostra Vision..." class="w-full rounded-lg border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-indigo-500"></textarea>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                  <i class="fa-solid fa-heart-pulse text-rose-500 mr-1"></i> Bisogni Umani Soddisfatti
+                </label>
+                <textarea id="brandBisogni" rows="3" placeholder="Quali bisogni soddisfa l'impresa (es. benessere, sicurezza, socialità, stima, autorealizzazione)..." class="w-full rounded-lg border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-indigo-500"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex justify-end">
+            <button onclick="salvaBrandIdentity()" id="btnSalva5" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2 rounded-lg text-xs transition shadow-sm flex items-center space-x-1.5">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Salva Brand Identity</span>
+            </button>
           </div>
         </div>
 
@@ -319,17 +438,13 @@
     const SUPABASE_URL = "https://qxthqvmuyldvrwnkwsys.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4dGhxdm11eWxkdnJ3bmt3c3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MDUxMTUsImV4cCI6MjA5NTk4MTExNX0.x1cUlhCrD3OQlkgchWu2QElOkw16G1q7SSn8lWqSoj8";
 
-    // Client Supabase
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    // Stato sessione locale
     let currentTeam = null;
 
-    // 1. Caricamento gruppi al cambio classe
+    // 1. Carica gruppi per classe
     async function caricaGruppiPerClasse() {
       const classe = document.getElementById('selectClasse').value;
       const selectTeam = document.getElementById('selectTeam');
-      
       selectTeam.innerHTML = '<option value="">-- Caricamento gruppi... --</option>';
       selectTeam.disabled = true;
 
@@ -360,12 +475,11 @@
       selectTeam.classList.remove('bg-slate-100');
     }
 
-    // 2. Verifica PIN e Accesso Dashboard
+    // 2. Verifica PIN e Login
     async function eseguiAccesso() {
       const teamId = document.getElementById('selectTeam').value;
       const pin = document.getElementById('inputPin').value.trim();
       const errBox = document.getElementById('erroreLogin');
-
       errBox.classList.add('hidden');
 
       if (!teamId || !pin) {
@@ -386,19 +500,14 @@
         return;
       }
 
-      // Salva sessione in memoria
       currentTeam = team;
-
-      // Popola interfaccia
       document.getElementById('nomeGruppoBadge').textContent = `${team.classe} - ${team.nome_gruppo}`;
       document.getElementById('badgeTeam').classList.remove('hidden');
       document.getElementById('badgeTeam').classList.add('flex');
       document.getElementById('sezioneLogin').classList.add('hidden');
       document.getElementById('dashboardApp').classList.remove('hidden');
 
-      // Popola i campi con i dati salvati
       popolaCampiTeam(team);
-      // Carica i dati del Canvas da Supabase
       caricaCanvas();
     }
 
@@ -407,6 +516,11 @@
       document.getElementById('payoff').value = team.payoff || '';
       document.getElementById('location').value = team.location || '';
       document.getElementById('targetClientela').value = team.target_clientela || '';
+      document.getElementById('riflessioneTeam').value = team.riflessione_ispirazione || '';
+      document.getElementById('brandBusinessIdea').value = team.business_idea || '';
+      document.getElementById('brandVision').value = team.vision || '';
+      document.getElementById('brandMission').value = team.mission || '';
+      document.getElementById('brandBisogni').value = team.bisogni_soddisfatti || '';
 
       if (team.logo_url) {
         const preview = document.getElementById('imgAnteprimaLogo');
@@ -419,10 +533,10 @@
       }
     }
 
-    // Carica dati del Canvas
+    // Carica Canvas
     async function caricaCanvas() {
       if (!currentTeam) return;
-      const { data, error } = await db
+      const { data } = await db
         .from('business_model_canvas')
         .select('*')
         .eq('team_id', currentTeam.id)
@@ -441,32 +555,33 @@
       }
     }
 
-    // 3. Salvataggio Step 1 (Identità & Logo)
+    // Salva Step 0: Riflessione
+    async function salvaRiflessione() {
+      const btn = document.getElementById('btnSalva0');
+      btn.disabled = true;
+      const val = document.getElementById('riflessioneTeam').value.trim();
+      const { error } = await db.from('teams').update({ riflessione_ispirazione: val }).eq('id', currentTeam.id);
+      btn.disabled = false;
+      if (!error) {
+        alert("Riflessione del team salvata!");
+        cambiaTab(1);
+      }
+    }
+
+    // Salva Step 1: Identità & Logo
     async function salvaStep1() {
       const btn = document.getElementById('btnSalva1');
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
-
       try {
         const fileInput = document.getElementById('fileLogo');
         let logoUrl = currentTeam.logo_url;
 
-        // Upload nuovo file se presente
         if (fileInput.files.length > 0) {
           const file = fileInput.files[0];
           const fileExt = file.name.split('.').pop();
           const filePath = `${currentTeam.id}/${Date.now()}.${fileExt}`;
-
-          const { error: uploadErr } = await db.storage
-            .from('team-logos')
-            .upload(filePath, file, { upsert: true });
-
-          if (uploadErr) throw uploadErr;
-
-          const { data: urlData } = db.storage
-            .from('team-logos')
-            .getPublicUrl(filePath);
-
+          await db.storage.from('team-logos').upload(filePath, file, { upsert: true });
+          const { data: urlData } = db.storage.from('team-logos').getPublicUrl(filePath);
           logoUrl = urlData.publicUrl;
         }
 
@@ -477,34 +592,19 @@
           updated_at: new Date().toISOString()
         };
 
-        const { error: updateErr } = await db
-          .from('teams')
-          .update(updateData)
-          .eq('id', currentTeam.id);
-
-        if (updateErr) throw updateErr;
-
+        await db.from('teams').update(updateData).eq('id', currentTeam.id);
         currentTeam.ragione_sociale = updateData.ragione_sociale;
         currentTeam.payoff = updateData.payoff;
         currentTeam.logo_url = updateData.logo_url;
-
-        if (logoUrl) {
-          const preview = document.getElementById('imgAnteprimaLogo');
-          preview.src = logoUrl;
-          preview.classList.remove('hidden');
-          document.getElementById('placeholderLogo').classList.add('hidden');
-        }
-
         alert("Step 1 salvato correttamente!");
       } catch (err) {
-        alert("Errore durante il salvataggio: " + err.message);
+        alert("Errore salvataggio: " + err.message);
       } finally {
         btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
       }
     }
 
-    // Generazione Logo con IA
+    // Genera Logo con IA
     async function generaLogoConIA() {
       const nomeAzienda = document.getElementById('ragioneSociale').value.trim();
       const payoff = document.getElementById('payoff').value.trim();
@@ -512,35 +612,25 @@
       const btn = document.getElementById('btnGeneraIA');
 
       if (!nomeAzienda) {
-        alert("Prima di generare il logo con l'IA, inserisci il Nome Impresa / Ragione Sociale!");
-        document.getElementById('ragioneSociale').focus();
+        alert("Inserisci prima il Nome dell'Impresa!");
         return;
       }
 
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Creazione in corso...</span>`;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Creazione...</span>`;
 
       try {
         const { data, error } = await db.functions.invoke('genera-logo', {
-          body: {
-            teamId: currentTeam.id,
-            nomeAzienda: nomeAzienda,
-            payoff: payoff,
-            promptStile: promptStile
-          }
+          body: { teamId: currentTeam.id, nomeAzienda, payoff, promptStile }
         });
-
-        if (error || !data || data.error) {
-          throw new Error(data?.error || error?.message || "Errore durante la generazione");
-        }
+        if (error || data?.error) throw new Error(data?.error || error?.message);
 
         currentTeam.logo_url = data.logoUrl;
         const preview = document.getElementById('imgAnteprimaLogo');
         preview.src = data.logoUrl;
         preview.classList.remove('hidden');
         document.getElementById('placeholderLogo').classList.add('hidden');
-
-        alert("🎉 Logo generato con successo e assegnato alla tua impresa!");
+        alert("🎉 Logo generato con successo!");
       } catch (err) {
         alert("Errore Tutor IA: " + err.message);
       } finally {
@@ -549,63 +639,23 @@
       }
     }
 
-    // 4. Salvataggio Step 2 (Location)
+    // Salva Step 2 & 3
     async function salvaStep2() {
-      const btn = document.getElementById('btnSalva2');
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
-
-      try {
-        const loc = document.getElementById('location').value.trim();
-        const { error } = await db
-          .from('teams')
-          .update({ location: loc, updated_at: new Date().toISOString() })
-          .eq('id', currentTeam.id);
-
-        if (error) throw error;
-        currentTeam.location = loc;
-        alert("Location salvata correttamente!");
-      } catch (err) {
-        alert("Errore durante il salvataggio: " + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
-      }
+      const loc = document.getElementById('location').value.trim();
+      await db.from('teams').update({ location: loc }).eq('id', currentTeam.id);
+      currentTeam.location = loc;
+      alert("Location salvata!");
     }
-
-    // 5. Salvataggio Step 3 (Target)
     async function salvaStep3() {
-      const btn = document.getElementById('btnSalva3');
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
-
-      try {
-        const target = document.getElementById('targetClientela').value.trim();
-        const { error } = await db
-          .from('teams')
-          .update({ target_clientela: target, updated_at: new Date().toISOString() })
-          .eq('id', currentTeam.id);
-
-        if (error) throw error;
-        currentTeam.target_clientela = target;
-        alert("Target di clientela salvato correttamente!");
-      } catch (err) {
-        alert("Errore durante il salvataggio: " + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Avanzamento</span>`;
-      }
+      const target = document.getElementById('targetClientela').value.trim();
+      await db.from('teams').update({ target_clientela: target }).eq('id', currentTeam.id);
+      currentTeam.target_clientela = target;
+      alert("Target salvato!");
     }
 
-    // 6. Salvataggio Step 4 (Canvas)
-    async function salvaCanvas() {
-      if (!currentTeam) return;
-      const btn = document.getElementById('btnSalvaCanvas');
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvataggio...</span>`;
-
-      const payload = {
-        team_id: currentTeam.id,
+    // Canvas Dati Helper
+    function getCanvasFormData() {
+      return {
         key_partners: document.getElementById('bmc_partners').value.trim(),
         key_activities: document.getElementById('bmc_activities').value.trim(),
         key_resources: document.getElementById('bmc_resources').value.trim(),
@@ -614,38 +664,120 @@
         channels: document.getElementById('bmc_channels').value.trim(),
         customer_segments: document.getElementById('bmc_segments').value.trim(),
         cost_structure: document.getElementById('bmc_costs').value.trim(),
-        revenue_streams: document.getElementById('bmc_revenues').value.trim(),
-        updated_at: new Date().toISOString()
+        revenue_streams: document.getElementById('bmc_revenues').value.trim()
       };
+    }
 
+    // Salva Canvas
+    async function salvaCanvas() {
+      if (!currentTeam) return;
+      const btn = document.getElementById('btnSalvaCanvas');
+      btn.disabled = true;
+      const payload = { team_id: currentTeam.id, ...getCanvasFormData(), updated_at: new Date().toISOString() };
       try {
-        const { error } = await db
-          .from('business_model_canvas')
-          .upsert(payload, { onConflict: 'team_id' });
-
+        const { error } = await db.from('business_model_canvas').upsert(payload, { onConflict: 'team_id' });
         if (error) throw error;
-        alert("🎉 Business Model Canvas salvato con successo!");
+        alert("🎉 Business Model Canvas salvato!");
       } catch (err) {
-        alert("Errore salvataggio Canvas: " + err.message);
+        alert("Errore: " + err.message);
       } finally {
         btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i><span>Salva Canvas</span>`;
       }
     }
 
-    // Navigazione tra le schede
+    // Tutor IA: Feedback Canvas
+    async function chiediFeedbackTutorCanvas() {
+      const btn = document.getElementById('btnTutorCanvas');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Analisi in corso...</span>`;
+
+      try {
+        const { data, error } = await db.functions.invoke('tutor-canvas', {
+          body: {
+            teamInfo: {
+              ragioneSociale: document.getElementById('ragioneSociale').value,
+              payoff: document.getElementById('payoff').value,
+              location: document.getElementById('location').value,
+              targetClientela: document.getElementById('targetClientela').value
+            },
+            canvasData: getCanvasFormData(),
+            requestedAction: "review_canvas"
+          }
+        });
+
+        if (error || data?.error) throw new Error(data?.error || error?.message);
+
+        document.getElementById('testoFeedbackTutor').textContent = data.feedback;
+        document.getElementById('boxFeedbackTutor').classList.remove('hidden');
+      } catch (err) {
+        alert("Errore Tutor IA: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-chalkboard-user text-amber-300"></i><span>Revisiona con Tutor IA</span>`;
+      }
+    }
+
+    // Tutor IA: Sintesi Brand Identity da Canvas
+    async function generaBrandIdentityConIA() {
+      const btn = document.getElementById('btnGeneraBrandIA');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Sintesi in corso...</span>`;
+
+      try {
+        const { data, error } = await db.functions.invoke('tutor-canvas', {
+          body: {
+            teamInfo: {
+              ragioneSociale: document.getElementById('ragioneSociale').value,
+              payoff: document.getElementById('payoff').value,
+              location: document.getElementById('location').value,
+              targetClientela: document.getElementById('targetClientela').value
+            },
+            canvasData: getCanvasFormData(),
+            requestedAction: "generate_brand_identity"
+          }
+        });
+
+        if (error || data?.error) throw new Error(data?.error || error?.message);
+
+        // Popola la sezione Business Idea con la sintesi generata
+        document.getElementById('brandBusinessIdea').value = data.feedback;
+        alert("💡 Il Tutor IA ha elaborato una bozza strategica per la Brand Identity!");
+      } catch (err) {
+        alert("Errore Tutor IA: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i><span>Sintetizza con Tutor IA</span>`;
+      }
+    }
+
+    // Salva Brand Identity
+    async function salvaBrandIdentity() {
+      const btn = document.getElementById('btnSalva5');
+      btn.disabled = true;
+      const updateData = {
+        business_idea: document.getElementById('brandBusinessIdea').value.trim(),
+        vision: document.getElementById('brandVision').value.trim(),
+        mission: document.getElementById('brandMission').value.trim(),
+        bisogni_soddisfatti: document.getElementById('brandBisogni').value.trim()
+      };
+
+      const { error } = await db.from('teams').update(updateData).eq('id', currentTeam.id);
+      btn.disabled = false;
+      if (!error) alert("🎉 Brand Identity salvata con successo!");
+    }
+
+    // Navigazione Tab
     function cambiaTab(step) {
-      [1, 2, 3, 4].forEach(num => {
+      [0, 1, 2, 3, 4, 5].forEach(num => {
         const content = document.getElementById(`stepContenuto${num}`);
         const btn = document.getElementById(`tabBtn${num}`);
         if (!content || !btn) return;
-        
         if (num === step) {
           content.classList.remove('hidden');
-          btn.className = "py-4 px-5 text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-2 whitespace-nowrap";
+          btn.className = "py-4 px-4 text-xs sm:text-sm font-semibold border-b-2 border-indigo-600 text-indigo-600 flex items-center space-x-1.5 whitespace-nowrap";
         } else {
           content.classList.add('hidden');
-          btn.className = "py-4 px-5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-2 whitespace-nowrap";
+          btn.className = "py-4 px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center space-x-1.5 whitespace-nowrap";
         }
       });
     }
